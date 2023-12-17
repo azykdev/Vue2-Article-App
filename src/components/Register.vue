@@ -25,7 +25,14 @@ export default {
   methods: {
     submitHandler(e) {
       e.preventDefault()
-      this.$store.commit("setLoading")
+      
+      const user = {
+        username: 'aaa',
+        email: 'aaa@dwdw.wsw',
+        password: 'aaa2222222222',
+      }
+
+      this.$store.dispatch('register', user)
     }
   }
 }
