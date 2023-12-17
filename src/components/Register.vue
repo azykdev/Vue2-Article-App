@@ -27,8 +27,8 @@ export default {
       e.preventDefault()
       
       const user = {
-        username: 'aaa',
-        email: 'aaa@dwdw.wsw',
+        username: 'aaabb',
+        email: 'aaa@dwbbdw.wsw',
         password: 'aaa2222222222',
       }
 
