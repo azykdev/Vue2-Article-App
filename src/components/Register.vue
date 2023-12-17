@@ -4,9 +4,9 @@
       <img class="mb-4" src="../assets/logo.png" alt="" width="72">
       <h1 class="h3 mb-3 fw-normal">Register</h1>
       
-      <MyInput :label="'Name'" :type="'text'" />
-      <MyInput :label="'Email adress'" :type="'email'" />
-      <MyInput :label="'Password'" :type="'password'" />
+      <MyInput :label="'Name'" :type="'text'" v-model="user.username" />
+      <MyInput :label="'Email adress'" :type="'email'" v-model="user.email" />
+      <MyInput :label="'Password'" :type="'password'" v-model="user.password" />
 
       <MyButton type="submit" :disabled="loading" @click="submitHandler">Register</MyButton>
       <p class="mt-5 mb-3 text-muted">© 2022–2023</p>
@@ -17,6 +17,15 @@
 <script>
 export default {
   name: "Register",
+  data() {
+    return {
+      user: {
+        username: '',
+        email: '',
+        password: '',
+      }
+    }
+  },
   computed: {
     loading() {
       return this.$store.state.auth.loading
@@ -25,14 +34,12 @@ export default {
   methods: {
     submitHandler(e) {
       e.preventDefault()
-      
-      const user = {
-        username: 'aaabb',
-        email: 'aaa@dwbbdw.wsw',
-        password: 'aaa2222222222',
-      }
 
-      this.$store.dispatch('register', user)
+      this.$store.dispatch('register', this.user).then(() => {
+        this.$router.push({ name: 'home' })
+      }).catch((error) => {
+        console.log(error)
+      })
     }
   }
 }
