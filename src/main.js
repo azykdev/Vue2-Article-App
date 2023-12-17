@@ -2,8 +2,12 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import uiComponents from './ui-components'
 
-createApp(App)
-.use(store)
-.use(router)
-.mount('#app')
+const app = createApp(App)
+
+uiComponents.map((component) => app.component(component.name, component))
+
+app.use(store)
+app.use(router)
+app.mount('#app')
