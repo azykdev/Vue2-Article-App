@@ -1,9 +1,12 @@
 <template>
   <main class="form-signin">
+    
     <form class="text-center" >
       <img class="mb-4" src="../assets/logo.png" alt="" width="72">
       <h1 class="h3 mb-3 fw-normal">Register</h1>
-      
+
+      <ValidationError v-if="errors" :errors="errors" class="mb-3"/>
+
       <MyInput :label="'Name'" :type="'text'" v-model="user.username" />
       <MyInput :label="'Email adress'" :type="'email'" v-model="user.email" />
       <MyInput :label="'Password'" :type="'password'" v-model="user.password" />
@@ -15,33 +18,38 @@
 </template>
 
 <script>
-export default {
-  name: "Register",
-  data() {
-    return {
-      user: {
-        username: '',
-        email: '',
-        password: '',
-      }
-    }
-  },
-  computed: {
-    loading() {
-      return this.$store.state.auth.loading
-    }
-  },
-  methods: {
-    submitHandler(e) {
-      e.preventDefault()
+import ValidationError from './ValidationError.vue'
 
-      this.$store.dispatch('register', this.user).then(() => {
-        this.$router.push({ name: 'home' })
-      }).catch((error) => {
-        console.log(error)
-      })
-    }
-  }
+export default {
+    name: "Register",
+    data() {
+        return {
+            user: {
+                username: '',
+                email: '',
+                password: '',
+            }
+        };
+    },
+    computed: {
+        loading() {
+            return this.$store.state.auth.loading;
+        },
+        errors() {
+            return this.$store.state.auth.errors;
+        }
+    },
+    methods: {
+        submitHandler(e) {
+            e.preventDefault();
+            this.$store.dispatch('register', this.user).then(() => {
+                this.$router.push({ name: 'home' });
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
+    },
+    components: { ValidationError }
 }
 </script>
 
