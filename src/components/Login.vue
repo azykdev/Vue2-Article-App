@@ -5,11 +5,13 @@
       <img class="mb-4" src="../assets/logo.png" alt="" width="72">
       <h1 class="h3 mb-3 fw-normal">Login</h1>
 
-      <!-- <MyInput :label="'Name'" :type="'text'" /> -->
-      <MyInput :label="'Email adress'" :type="'email'" />
-      <MyInput :label="'Password'" :type="'password'" />
+      <ValidationError v-if="errors" :errors="errors" class="mb-3"/>
 
-      <MyButton>Login</MyButton>
+      <!-- <MyInput :label="'Name'" :type="'text'" /> -->
+      <MyInput :label="'Email adress'" :type="'email'" v-model="user.email" />
+      <MyInput :label="'Password'" :type="'password'" v-model="user.password" />
+
+      <MyButton type="submit" :disabled="loading" @click="submitHandler">Login</MyButton>
       <p class="mt-5 mb-3 text-muted">© 2022–2023</p>
     </form>
   </main>
@@ -17,7 +19,46 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import ValidationError from './ValidationError.vue'
 export default {
+
+  name: "Login",
+  data() {
+    return {
+      user: {
+        email: '',
+        password: '',
+      }
+    }
+  },
+  methods: {
+    submitHandler(e) {
+      e.preventDefault();
+      this.$store.dispatch('login', this.user).then(() => {
+        this.$router.push({ name: 'home' });
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  },
+
+  computed: {
+    // loading() {
+    //   return this.$store.state.auth.loading;
+    // },
+    // errors() {
+    //   return this.$store.state.auth.errors;
+    // },
+    ...mapState({
+      loading: state => state.auth.loading,
+      errors: state => state.auth.errors
+    })
+  },
+
+  components: {
+    ValidationError
+  }
 
 }
 </script>
