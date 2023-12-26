@@ -4,35 +4,42 @@ import { setItem } from "@/helpers/persistaneStorage"
 const state = {
   loading: false,
   errors: null,
-  user: null
+  user: null,
+  isLoggedIn: null
 }
 
 const mutations = {
   registerStart(state) {
     state.loading = true
+    state.errors = null
+    state.user = null
+    state.isLoggedIn = null
   },
   registerSuccess(state, payload) {
     state.loading = false
     state.user = payload
-    state.errors = null
+    state.isLoggedIn = true
   },
   registerFailure(state, payload) {
     state.loading = false
-    state.user = null
     state.errors = payload
+    state.isLoggedIn = false
   },
   loginStart(state) {
     state.loading = true
+    state.errors = null
+    state.user = null
+    state.isLoggedIn = null
   },
   loginSuccess(state, payload) {
     state.loading = false
     state.user = payload
-    state.errors = null
+    state.isLoggedIn = true
   },
   loginFailure(state, payload) {
     state.loading = false
-    state.user = null
     state.errors = payload
+    state.isLoggedIn = false
   }
 }
 
