@@ -11,7 +11,7 @@
                     <RouterLink class="me-3 py-2 text-dark text-decoration-none" :to="{ name: 'home' }">{{ user.username }}</RouterLink>
 
                 </template>
-                <template v-else>
+                <template v-if="isAnonymous">
                     <RouterLink class="me-3 py-2 text-dark text-decoration-none" :to="{ name: 'login' }">Login</RouterLink>
                     <RouterLink class="me-3 py-2 text-dark text-decoration-none" :to="{ name: 'register' }">Register</RouterLink>
                 </template>
@@ -22,6 +22,8 @@
 
 <script>
     import { mapState } from 'vuex';
+    import { gettersTypes } from '@/modules/types';
+    import { mapGetters } from 'vuex';
     export default {
         name: "Navbar",
         data() {
@@ -31,9 +33,17 @@
         },
         computed: {
             ...mapState({
-                user: state => state.auth.user,
-                isLoggedIn: state => state.auth.isLoggedIn
+                // user: state => state.auth.user,
+                // isLoggedIn: state => state.auth.isLoggedIn
+            }),
+
+            ...mapGetters({
+                user: gettersTypes.GET_USER,
+                isLoggedIn: gettersTypes.GET_ISLOGGEDIN,
+                isAnonymous: gettersTypes.GET_ISANONYMOUS
             })
+            
+
         }
     }
 </script>
