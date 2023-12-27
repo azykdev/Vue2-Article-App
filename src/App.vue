@@ -1,7 +1,15 @@
-<script setup>
-import { Navbar } from './components';
-
-  
+<script>
+import { RouterView } from 'vue-router';
+import Navbar from './components/Navbar.vue';
+export default {
+  name: 'App',
+  components: {
+    Navbar
+  },
+  mounted() {
+    this.$store.dispatch('getCurrentUser');
+  }
+}
 </script>
 
 <template>
@@ -12,6 +20,4 @@ import { Navbar } from './components';
   </div>
 </template>
 
-<style lang="css" scoped>
-  
-</style>
+<style lang="css" scoped></style>
