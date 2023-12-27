@@ -1,5 +1,5 @@
 import AuthService from "@/api/auth"
-import { setItem } from "@/helpers/persistaneStorage"
+import { removeItem, setItem } from "@/helpers/persistaneStorage"
 import { gettersTypes } from "@/modules/types"
 
 const state = {
@@ -69,6 +69,11 @@ const mutations = {
     state.loading = false
     state.user = null
     state.isLoggedIn = false
+  },
+
+  logout(state) {
+    state.user = null
+    state.isLoggedIn = false
   }
 }
 
@@ -109,6 +114,10 @@ const actions = {
         context.commit('currentUserFailure')
       })
     })
+  },
+  logout(context) {
+    context.commit('logout')
+    removeItem('token')
   }
 }
 
