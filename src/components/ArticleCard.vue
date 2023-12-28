@@ -9,7 +9,7 @@
         <p class="card-text">{{ article.description }}</p>
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Read more</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary" @click="readMore()">Read more</button>
             <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
           </div>
           <small class="text-body-secondary">{{ new Date(article.createdAt).toLocaleString() }}</small>
@@ -24,6 +24,11 @@ export default {
   name: "ArticleCard",
   props: {
     article: Object
+  },
+  methods: {
+    readMore() {
+      this.$router.push({ name: 'article', params: { slug: this.article.slug } })
+    }
   }
 }
 </script>

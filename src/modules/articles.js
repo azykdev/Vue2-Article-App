@@ -3,7 +3,8 @@ import ArticlesService from "@/api/articles"
 const state = {
   loading: false,
   errors: null,
-  articles: null
+  articles: null,
+  articleBySlug: null
 }
 
 const getters = {
@@ -22,6 +23,19 @@ const mutations = {
   },
   getArticlesFailure(state) {
     state.loading = false
+  },
+
+  getArticleBySlugStart(state) {
+    state.loading = true
+    state.errors = null
+    state.articleBySlug = null
+  },
+  getArticleBySlugSuccess(state, payload) {
+    state.loading = false
+    state.articleBySlug = payload
+  },
+  getArticleBySlugFailure(state) {
+    state.loading = false
   }
 }
 
@@ -34,6 +48,18 @@ const actions = {
         resolve(res)
       }).catch(() => {
         commit('getArticlesFailure')
+      })
+    })
+  },
+
+  getArticleBySlug({ commit }, slug) {
+    commit('getArticleBySlugStart')
+    return new Promise((resolve, reject) => {
+      ArticlesService.article(slug).then((res) => {
+        commit('getArticleBySlugSuccess', res.data.article)
+        resolve(res)
+      }).catch(() => {
+        commit('getArticleBySlugFailure')
       })
     })
   }
