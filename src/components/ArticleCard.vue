@@ -1,7 +1,7 @@
 <template>
   <div class="col">
     <div class="card border-0" style="font-family: 'Times New Roman', Times, serif;">
-      <div class="card-header " style="background-color: #b7b7b7">
+      <div class="card-header " style="background-color: #d7d7d7">
         <h6 class="my-0 fw-light text-muted mb-3">{{ article.author.username }}</h6>
         <h5 class="card-title text-dark">{{ article.title }}</h5>
       </div>
