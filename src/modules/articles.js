@@ -16,6 +16,7 @@ const mutations = {
     state.loading = true
     state.errors = null
     state.articles = null
+    state.articleBySlug = null
   },
   getArticlesSuccess(state, payload) {
     state.loading = false
@@ -29,6 +30,7 @@ const mutations = {
     state.loading = true
     state.errors = null
     state.articleBySlug = null
+    state.articles = null
   },
   getArticleBySlugSuccess(state, payload) {
     state.loading = false
@@ -42,7 +44,7 @@ const mutations = {
 const actions = {
   getArticles({ commit }) {
     commit('getArticlesStart')
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       ArticlesService.articles().then((res) => {
         commit('getArticlesSuccess', res.data.articles)
         resolve(res)
@@ -54,7 +56,7 @@ const actions = {
 
   getArticleBySlug({ commit }, slug) {
     commit('getArticleBySlugStart')
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       ArticlesService.article(slug).then((res) => {
         commit('getArticleBySlugSuccess', res.data.article)
         resolve(res)

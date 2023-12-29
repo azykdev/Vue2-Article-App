@@ -6,7 +6,9 @@
 
 <script>
   export default {
-    
+    mounted() {
+      this.$store.dispatch('getArticleBySlug', this.$route.params.slug)
+    }
   }
 </script>
 
