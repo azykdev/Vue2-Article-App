@@ -79,6 +79,13 @@ const actions = {
         resolve(res)
       })
     })
+  },
+  editArticle({commit}, data) {
+    return new Promise(resolve => {
+      ArticlesService.editArticle(data).then(res => {
+        resolve(res)
+      })
+    })
   }
 }
 

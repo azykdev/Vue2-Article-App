@@ -12,6 +12,9 @@ const ArticlesService = {
   },
   deleteArticle(slug) {
     return axios.delete('/articles/' + slug)
+  },
+  editArticle(data) {
+    return axios.put(`/articles/${data.slug}`, {article: data})
   }
 }
 
