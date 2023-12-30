@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView, LoginView, RegisterView, ArticleView } from '@/views'
+import { HomeView, LoginView, RegisterView, ArticleView, CreateArticleView } from '@/views'
 
 const routes = [
   {
@@ -21,7 +21,13 @@ const routes = [
     path: '/article/:slug',
     name: 'article',
     component: ArticleView,
+  },
+  {
+    path: '/create-article',
+    name: 'create-article',
+    component: CreateArticleView
   }
+
   
 ]
 

@@ -5,6 +5,7 @@
                 <img src="../assets/logo.png" alt="logo" width="30"/>
                 <div class="fs-4"><span>Article</span></div>
             </RouterLink> 
+            <RouterLink class="ms-5 py-2 text-dark text-decoration-none" :to="{ name: 'create-article'}">Create Article</RouterLink>
             
             <nav class="d-flex mt-2 mt-md-0 ms-md-auto ">
                 <template v-if="isLoggedIn">
