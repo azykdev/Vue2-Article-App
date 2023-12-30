@@ -64,6 +64,14 @@ const actions = {
         commit('getArticleBySlugFailure')
       })
     })
+  },
+
+  createArticle({ commit }, data) {
+    return new Promise(resolve => {
+      ArticlesService.createArticle(data).then(res => {
+        resolve(res)
+      })
+    })
   }
 }
 
