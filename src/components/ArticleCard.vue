@@ -9,8 +9,11 @@
         <p class="card-text">{{ article.description }}</p>
         <div class="d-flex justify-content-between align-items-center">
           <div class="btn-group">
-            <button type="button" class="btn btn-sm btn-outline-secondary" @click="readMore()">Read more</button>
-            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+            <button type="button" class="btn btn-sm btn-outline-primary" @click="readMore()">Read more</button>
+            <template v-if="user">
+              <button type="button" class="btn btn-sm btn-outline-secondary" v-if="article.author.username == user.username">Edit</button>
+              <button type="button" class="btn btn-sm btn-outline-danger" v-if="article.author.username == user.username" @click="deleteArticle()" >Delete</button>
+            </template>
           </div>
           <small class="text-body-secondary">{{ new Date(article.createdAt).toLocaleString() }}</small>
         </div>
@@ -20,6 +23,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
   name: "ArticleCard",
   props: {
@@ -28,7 +32,17 @@ export default {
   methods: {
     readMore() {
       this.$router.push({ name: 'article', params: { slug: this.article.slug } })
-    }
+    },
+    deleteArticle() {
+      this.$store.dispatch('deleteArticle', this.article.slug).then(() => {
+        this.$store.dispatch('getArticles')
+      })
+    },
+  },
+  computed: {
+    ...mapState({
+      user: state => state.auth.user
+    })
   }
 }
 </script>

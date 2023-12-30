@@ -72,6 +72,13 @@ const actions = {
         resolve(res)
       })
     })
+  },
+  deleteArticle({ commit }, slug) {
+    return new Promise(resolve => {
+      ArticlesService.deleteArticle(slug).then(res => {
+        resolve(res)
+      })
+    })
   }
 }
 
